@@ -21,3 +21,30 @@ code {
 .auth-page-btn {
   margin: 0 .3rem;
 }
+
+.tabs {
+  display: flex;
+  justify-content: center;
+}
+
+.tabs li {
+  margin: 0 !important;
+}
+
+.tabs .tab a {
+  color: #000;
+}
+
+.tabs .tab a:hover {
+  background-color: #b2ebf2;
+  color: #000;
+}
+
+.tabs .tab a.active {
+  background-color: #00acc1 !important;
+  color: #fff;
+}
+
+.tabs .indicator {
+  background-color: #00838f;
+}

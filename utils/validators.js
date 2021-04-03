@@ -1,6 +1,25 @@
 const {body} = require('express-validator');
 
-const emailAndPasswordValidators = [
+exports.registerValidators = [
+   body('email', 'Invalid email!')
+      .normalizeEmail()
+      .isEmail(),
+   body('password', 'Password must be at least 6 characters')
+      .isLength({
+         min: 6,
+         max: 64
+      })
+      .isAlphanumeric()
+      .trim(),
+   body('name', 'Name must be at least 2 characters')
+      .isLength({
+         min: 2,
+         max: 64
+      })
+      .trim()
+];
+
+exports.loginValidators = [
    body('email', 'Invalid email!')
       .normalizeEmail()
       .isEmail(),
@@ -11,20 +30,6 @@ const emailAndPasswordValidators = [
       })
       .isAlphanumeric()
       .trim()
-];
-
-exports.registerValidators = [
-   ...emailAndPasswordValidators,
-   body('name', 'Name must be at least 2 characters')
-      .isLength({
-         min: 2,
-         max: 64
-      })
-      .trim()
-];
-
-exports.loginValidators = [
-   ...emailAndPasswordValidators,
 ];
 
 exports.cardValidators = [

@@ -3,13 +3,12 @@ const mongoose = require('mongoose');
 const path = require('path');
 
 const keys = require('./keys/index');
-const authRoute = require('./routes/auth.routes.js');
 
 const app = express();
 
 app.use(express.json({extended: true}));
 
-app.use('/api/auth', authRoute);
+app.use('/api/auth', require('./routes/auth.routes'));
 
 if (process.env.NODE_ENV === 'production') {
    app.use('/', express.static(path.join(__dirname, 'client', 'build')));
