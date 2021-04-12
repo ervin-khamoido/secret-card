@@ -11,9 +11,9 @@ export const useRoutes = isAutenticated => {
          <Switch>
             <Route path="/create" exact component={CreateCard} />
             <Route path="/history" exact component={CardHistory} />
-            <Route path="/find" exact component={FindCard} />
+            <Route path="/search" exact component={FindCard} />
             <Route path="/detail/:id" exact component={CardDetail} />
-            <Redirect to="/find" />
+            <Redirect to="/search" />
          </Switch>
       )
    } else {

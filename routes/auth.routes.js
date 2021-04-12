@@ -1,19 +1,16 @@
-const {Router, json} = require('express');
+const {Router} = require('express');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
-const {check, validationResult} = require('express-validator');
+const {validationResult} = require('express-validator');
 const jwt = require('jsonwebtoken');
-const config = require('config');
+// const config = require('config');
+const {registerValidators, loginValidators} = require('../utils/validators');
+const keys = require('../keys');
 
 const router = Router();
 
 // /api/auth/register
-router.post(
-   '/register', 
-   [
-      check('email', 'Invalid email!').isEmail(),
-      check('password', 'Passwoerd must be at least 8 characters').isLength({min: 6})
-   ], async (req, res) => {
+router.post('/register', registerValidators, async (req, res) => {
    try {
       const errors = validationResult(req);
 
@@ -43,12 +40,7 @@ router.post(
 });
 
 // /api/auth/login
-router.post('/login', 
-   [
-      check('email', 'Enter correct email!').normalizeEmail().isEmail(),
-      check('password', 'Invalid password!').exists()
-   ],
-   async (req, res) => {
+router.post('/login', loginValidators, async (req, res) => {
    try {
       const errors = validationResult(req);
 
@@ -74,7 +66,8 @@ router.post('/login',
 
       const token = jwt.sign(
          {userId: user.id},
-         config.get('jwtSecret'),
+         // config.get('jwtSecret'),
+         keys.JWT_SECRET_KEY,
          {expiresIn: '1h'}
       );
 

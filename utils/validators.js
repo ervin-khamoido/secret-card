@@ -48,3 +48,9 @@ exports.cardValidators = [
    body('author', 'If the value will be empty it will have the value "Anonymous"')
       .trim()
 ]
+
+exports.searchCardValidators = [
+   body('card_id', 'Card ID is invalid!')
+      .isAlphanumeric()
+      .trim()
+]

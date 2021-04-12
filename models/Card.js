@@ -9,6 +9,11 @@ const cardSchema = new Schema({
       type: String,
       required: true
    },
+   cardId: {
+      type: String,
+      required: true,
+      unique: true
+   },
    userId: {
       type: Schema.Types.ObjectId,
       ref: 'User'
@@ -21,7 +26,7 @@ const cardSchema = new Schema({
       type: Number,
       default: 0
    },
-   isRead: {
+   isViewed: {
       type: Boolean,
       require: true
    },
