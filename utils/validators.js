@@ -54,3 +54,32 @@ exports.searchCardValidators = [
       .isAlphanumeric()
       .trim()
 ]
+
+exports.createCardValidators = [
+   body('title', 'Title is invalid!')
+      .isLength({
+         min: 1,
+         max: 150
+      })
+      .trim(),
+   body('message', 'Your message is invalid!')
+      .isLength({
+         min: 1,
+         max: 2500
+      })
+      .trim(),
+   body('author', 'Author\'s name is invalid!')
+      .isLength({
+         min: 1,
+         max: 50
+      })
+      .trim(),
+   body('password', 'Password is invalid!')
+      .isLength({
+         min: 6
+      })
+      .trim(),
+   body('timeBeforeRemove', 'Value is invalid!')
+      .isNumeric()
+      .trim()
+]

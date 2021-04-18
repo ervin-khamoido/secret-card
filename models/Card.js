@@ -5,14 +5,18 @@ const cardSchema = new Schema({
       type: String,
       required: true
    },
-   text: {
+   message: {
       type: String,
       required: true
    },
-   cardId: {
+   // cardId: {
+   //    type: String,
+   //    // required: true,
+   //    unique: true
+   // },
+   password: {
       type: String,
-      required: true,
-      unique: true
+      required: true
    },
    userId: {
       type: Schema.Types.ObjectId,
@@ -22,17 +26,28 @@ const cardSchema = new Schema({
       type: Date,
       default: Date.now
    },
+   timeBeforeRemove: {
+      type: Number,
+      default: 10
+   },
+   isForOneReader: {
+      type: Boolean,
+      default: true
+   },
    views: {
       type: Number,
       default: 0
    },
    isViewed: {
       type: Boolean,
-      require: true
+      default: false
    },
    owner: {
       type: Types.ObjectId,
       ref: 'User'
+   },
+   author: {
+      type: String
    }
 });
 

@@ -1,9 +1,8 @@
 import {Switch, Route, Redirect} from 'react-router-dom';
 import {AuthPage} from './pages/AuthPage';
-import { CardDetail } from './pages/CardDetail';
 import { CardHistory } from './pages/CardHistory';
 import { CreateCard } from './pages/CreateCard';
-import { FindCard } from './pages/FindCard';
+import { FindCard } from './pages/FindCard/FindCard';
 
 export const useRoutes = isAutenticated => {
    if (isAutenticated) {
@@ -12,7 +11,6 @@ export const useRoutes = isAutenticated => {
             <Route path="/create" exact component={CreateCard} />
             <Route path="/history" exact component={CardHistory} />
             <Route path="/search" exact component={FindCard} />
-            <Route path="/detail/:id" exact component={CardDetail} />
             <Redirect to="/search" />
          </Switch>
       )

@@ -1,0 +1,20 @@
+.TitleWrapper {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.Message {
+   margin-top: 20px !important;
+}
+
+.Author {
+   position: absolute;
+   right: 3%;
+}
+
+.FindBtn {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}

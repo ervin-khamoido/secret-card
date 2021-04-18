@@ -1,12 +1,18 @@
 import { useState } from "react"
-import { useHttp } from "../hooks/http.hook";
-import {Loader} from '../components/Loader';
-import { useModal } from "../hooks/modals.hook";
+import { useHttp } from "../../hooks/http.hook";
+import {Loader} from '../../components/Loader';
+import { useModal } from "../../hooks/modals.hook";
+import classes from './FindCard.module.scss';
 
 export const FindCard = () => {
    const [value, setValue] = useState('');
-   const {loading, request} = useHttp();
+   const {loading} = useHttp();
+   // const {loading, request} = useHttp();
    const modal = useModal();
+
+   const titleWrapperStyles = [classes.TitleWrapper, 'title-wrapper'].join(' ');
+   const authorStyles = [classes.Author, 'card-title'].join(' ');
+   const findBtnStyles = [classes.FindBtn, "btn waves-effect cyan darken-2 modal-trigger"].join(' ');
 
    const changeHandler = event => {
       setValue(event.target.value);
@@ -47,13 +53,14 @@ export const FindCard = () => {
                      <label htmlFor="input_text">Enter card ID</label>
                   </div>
                   <button 
-                     data-target="modal1" 
-                     className="btn waves-effect cyan darken-2 modal-trigger"
+                     data-target="card-modal" 
+                     className={findBtnStyles}
                      type="submit"
                      onClick={findHandler}
                   >
+                     
+                     <span>Find</span>
                      <i className="material-icons right">search</i>
-                     Find
                   </button>
                </div>
             </form>
@@ -61,7 +68,7 @@ export const FindCard = () => {
 
          <div className="modal card blue-grey darken-1" id="card-modal">
                <div className="card-content white-text">
-                  <div className="title-wrapper" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                  <div className={titleWrapperStyles}>
                      <span className="card-title">Card Title</span>
                      <div>
                         <h6>Date of creation: 06/02/2021</h6>
@@ -69,7 +76,7 @@ export const FindCard = () => {
                      </div>
                   </div>
                   <hr/>
-                  <p style={{marginTop: '20px'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos voluptatum deserunt eos fuga esse quisquam, in nemo ut odio quis placeat consequatur maiores, reiciendis debitis, id aliquid nihil quo. Exercitationem veritatis laudantium saepe iure unde nemo facilis quia sint nihil! lorem100</p>
+                  <p className={classes.Message}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos voluptatum deserunt eos fuga esse quisquam, in nemo ut odio quis placeat consequatur maiores, reiciendis debitis, id aliquid nihil quo. Exercitationem veritatis laudantium saepe iure unde nemo facilis quia sint nihil! lorem100</p>
                </div>
                <div className="card-action">
                   <button
@@ -78,7 +85,7 @@ export const FindCard = () => {
                      Close forever for you
                   </button>
 
-                  <span className="card-title" style={{position: "absolute", right: '23px'}}>Author: Ervin</span>
+                  <span className={authorStyles}>Author: Ervin</span>
                </div>
          </div>
       </>
