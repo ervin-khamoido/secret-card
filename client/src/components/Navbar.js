@@ -19,9 +19,9 @@ export const Navbar = () => {
             <a href="/" className="brand-logo">Secret Card</a>
 
             <ul id="nav-mobile" className="right hide-on-med-and-down">
-               <li><NavLink to="/search">Find a card</NavLink></li>
-               <li><NavLink to="/create">Create a card</NavLink></li>
-               <li><NavLink to="/history">History of created cards</NavLink></li>
+               <li><NavLink to="/search">Find</NavLink></li>
+               <li><NavLink to="/create">Create</NavLink></li>
+               <li><NavLink to="/history">History</NavLink></li>
                <li><a href="/" onClick={logoutHandler}>Logout</a></li>
             </ul>
          </div>

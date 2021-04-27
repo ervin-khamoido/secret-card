@@ -1,57 +1,37 @@
+import { useCallback, useContext, useEffect, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { useHttp } from "../hooks/http.hook";
+import {Loader} from '../components/Loader';
+import { CardsList } from "../components/CardsList";
+
 export const CardHistory = () => {
+   const [cards, setCards] = useState([]);
+   const {loading, request} = useHttp();
+   const {token} = useContext(AuthContext);
+
+   const fetchCards = useCallback(async () => {
+      try {
+         const fetched = await request('/api/history', 'GET', null, {
+            Authorization: `Bearer ${token}`
+         });
+         
+         setCards(fetched)
+      } catch (error) {}
+   }, [token, request])
+
+   useEffect(() => {
+      fetchCards();
+   }, [fetchCards])
+
+   if (loading) {
+      return <Loader />
+   }
+
    return (
       <>
-         <h1>History of created cards</h1>
+         <h1 style={{textAlign: 'center'}}>History of created cards</h1>
          
-         <table className="striped highlight centered">
-            <thead>
-               <tr>
-                  <th>Title</th>
-                  <th>Views</th>
-                  <th>Date of creation</th>
-                  <th>Date of disappearance</th>
-                  <th>For how many readers</th>
-               </tr>
-            </thead>
-
-            <tbody>
-               <tr>
-                  <td>Secret card №1</td>
-                  <td>8</td>
-                  <td>04/02/2021</td>
-                  <td>13/03/2021</td>
-                  <td>many</td>
-               </tr>
-               <tr>
-                  <td>Secret card №1</td>
-                  <td>8</td>
-                  <td>04/02/2021</td>
-                  <td>13/03/2021</td>
-                  <td>many</td>
-               </tr>
-               <tr>
-                  <td>Secret card №1</td>
-                  <td>8</td>
-                  <td>04/02/2021</td>
-                  <td>13/03/2021</td>
-                  <td>many</td>
-               </tr>
-               <tr>
-                  <td>Secret card №1</td>
-                  <td>8</td>
-                  <td>04/02/2021</td>
-                  <td>13/03/2021</td>
-                  <td>many</td>
-               </tr>
-               <tr>
-                  <td>Secret card №1</td>
-                  <td>8</td>
-                  <td>04/02/2021</td>
-                  <td>13/03/2021</td>
-                  <td>many</td>
-               </tr>
-            </tbody>
-         </table>
+         {!loading && <CardsList cards={cards} />}
       </>
    )
 }

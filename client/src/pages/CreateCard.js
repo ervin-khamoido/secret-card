@@ -5,36 +5,26 @@ import { useMessage } from "../hooks/message.hook";
 
 // import {findChildNodes} from '../scripts/removeValidation';
 
-function findChildNodes(elems) {
-      // console.log('1 elem', elems);
-
-      if (typeof elems === 'object') {
-         // console.log('is obj', elems);
-
-         const keys = Object.keys(elems);
-
-         keys.forEach(item => {
-            // console.log('elem of array', elems[item]);
-
-            // if (elems[item].classList.contains('active') || elems[item].classList.contains('valid') || elems[item].classList.contains('character-counter')) {
-            //    console.log('HAS CLASS', elems[item]);
-            // }
-
-            if (elems[item].childNodes && elems[item].nodeType === 1) {
-               if (elems[item].classList.contains('active') || elems[item].classList.contains('valid') || elems[item].classList.contains('character-counter')) {
-                  console.log('HAS CLASS', elems[item]);
-               }
-               // console.log('elem of obj has children', elems[item].childNodes);
-               findChildNodes(elems[item].childNodes);
-            } 
-            // else {
-            //    console.log('не имеет детей 0', elems[item]);
-            // }
-         })
-      }}
+// function findChildNodes(elems) {
+//    if (typeof elems === 'object') {
+//       const keys = Object.keys(elems);
+//       keys.forEach(item => {
+//          if (elems[item].childNodes && elems[item].nodeType === 1) {
+//             if (elems[item].classList.contains('active') || elems[item].classList.contains('valid') || elems[item].classList.contains('character-counter')) {
+//                console.log('HAS CLASS', elems[item]);
+//             }
+//             // console.log('elem of obj has children', elems[item].childNodes);
+//             findChildNodes(elems[item].childNodes);
+//          } 
+//          // else {
+//          //    console.log('не имеет детей 0', elems[item]);
+//          // }
+//       })
+//    }
+// }
 
 const owner = JSON.parse(localStorage.getItem('userData'));
-const createCardForm = document.querySelector('.card');
+// const createCardForm = document.querySelector('.card');
 
 const initalState = {
    title: '',
@@ -62,9 +52,9 @@ export const CreateCard = () => {
 
    const [form, setForm] = useState({...initalState});
 
-   useEffect(() => {
-      findChildNodes(createCardForm);
-   }, [form, setForm])
+   // useEffect(() => {
+   //    findChildNodes(createCardForm);
+   // }, [form, setForm])
 
    const changeHandler = event => {
       if (event.target.name === 'isForOneReader') {

@@ -15,15 +15,21 @@ function App() {
     return <Loader />
   }
 
+  // const prod = () => {
+  //   localStorage.setItem('')
+  // }
+
   return (
-    <AuthContext.Provider value={{token, login, logout, userId, isAuthenticated}}>
-      <BrowserRouter>
-        {isAuthenticated && <Navbar/>}
-        <div className="container">
-          {routes}
-        </div>
-      </BrowserRouter>
-    </AuthContext.Provider>
+    <div onClick={event => prod(event)}>
+      <AuthContext.Provider value={{token, login, logout, userId, isAuthenticated}}>
+        <BrowserRouter>
+          {isAuthenticated && <Navbar/>}
+          <div className="container">
+            {routes}
+          </div>
+        </BrowserRouter>
+      </AuthContext.Provider>
+    </div>
   );
 }
 
