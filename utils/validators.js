@@ -13,7 +13,7 @@ exports.registerValidators = [
       .trim(),
    body('name', 'Name must be at least 2 characters')
       .isLength({
-         min: 2,
+         min: 1,
          max: 64
       })
       .trim()
@@ -79,7 +79,7 @@ exports.createCardValidators = [
          min: 6
       })
       .trim(),
-   body('timeBeforeRemove', 'Value is invalid!')
-      .isNumeric()
-      .trim()
+   // body('timeBeforeRemove', 'Value is invalid!')
+   //    .isNumeric()
+   //    .trim()
 ]

@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+// import { useHistory } from "react-router";
+// import { AuthContext } from "../context/AuthContext";
 import { useHttp } from "../hooks/http.hook";
 import { useMessage } from "../hooks/message.hook";
 // import '../scripts/removeValidation';
@@ -25,7 +27,6 @@ import { useMessage } from "../hooks/message.hook";
 
 const owner = JSON.parse(localStorage.getItem('userData'));
 // const createCardForm = document.querySelector('.card');
-
 const initalState = {
    title: '',
    message: '',
@@ -33,7 +34,7 @@ const initalState = {
    timeBeforeRemove: '',
    isForOneReader: true,
    password: '',
-   owner
+   owner: owner.userId
 };
 
 export const CreateCard = () => {
@@ -49,6 +50,8 @@ export const CreateCard = () => {
 
    const {request} = useHttp();
    const message = useMessage();
+   // const {logout} = useContext(AuthContext);
+   // const history = useHistory();
 
    const [form, setForm] = useState({...initalState});
 
@@ -71,10 +74,17 @@ export const CreateCard = () => {
    const createCardHandler = async () => {
       try {
          const data = await request('/api/create', 'POST', {...form});
-         
+         console.log(data, 'data');
+         console.log(data.status, 'data status');
          if (data.status === 201) {
             setForm({...initalState});
          }
+
+         // if (data === 401) {
+         //    // logout();
+         //    // history.push('/');
+         //    console.log('401 syk');
+         // }
 
          message(data.message);
       } catch (error) {
@@ -82,12 +92,13 @@ export const CreateCard = () => {
       }
    }
 
-   const clearHandler = () => {
-      setForm(initalState);
+   // const clearHandler = () => {
+   //    setForm({...initalState});
       
-      console.log('form', form);
-      console.log('initalState', initalState);
-   }
+   //    console.log('form', form);
+   //    console.log('initalState', initalState);
+   //    console.log('form', form);
+   // }
 
    return (
       <>
@@ -185,12 +196,12 @@ export const CreateCard = () => {
                         Create
                      </button>
 
-                     <button
+                     {/* <button
                         className="btn red darken-4"
                         onClick={clearHandler}
                      >
                         Clear
-                     </button>
+                     </button> */}
                   </div>
                </div>
             </div>
