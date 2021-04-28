@@ -19,16 +19,24 @@ export const useHttp = () => {
             headers
          });
 
-         const data = await response.json();
+         console.log('response.status', response.status);
 
+         if (response.status === 401 || response.status === 500) {
+            return response.status
+         }
+
+         const data = await response.json();
+         
          if (!response.ok) {
             throw new Error(data.message || 'Something went wrong!');
+            // return response.status
          }
 
          setLoading(false);
 
          return data;
       } catch (error) {
+         console.log(error);
          setLoading(false);
          setError(error.message);
          throw error;
