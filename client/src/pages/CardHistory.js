@@ -15,7 +15,7 @@ export const CardHistory = () => {
             Authorization: `Bearer ${token}`
          });
          
-         setCards(fetched)
+         setCards(fetched);
       } catch (error) {}
    }, [token, request])
 

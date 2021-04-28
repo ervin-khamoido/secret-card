@@ -8,7 +8,7 @@ const app = express();
 
 app.use(express.json({extended: true}));
 
-app.use('/*/**', require('./routes/isAuth.routes'))
+
 app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/create', require('./routes/createCard.routes'));
 app.use('/api/history', require('./routes/historyCard.routes'));

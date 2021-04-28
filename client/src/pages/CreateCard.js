@@ -33,7 +33,7 @@ const initalState = {
    timeBeforeRemove: '',
    isForOneReader: true,
    password: '',
-   owner: owner.userId
+   owner
 };
 
 export const CreateCard = () => {

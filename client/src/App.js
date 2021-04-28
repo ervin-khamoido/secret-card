@@ -20,7 +20,7 @@ function App() {
   // }
 
   return (
-    <div onClick={event => prod(event)}>
+    // <div onClick={event => prod(event)}>
       <AuthContext.Provider value={{token, login, logout, userId, isAuthenticated}}>
         <BrowserRouter>
           {isAuthenticated && <Navbar/>}
@@ -29,7 +29,7 @@ function App() {
           </div>
         </BrowserRouter>
       </AuthContext.Provider>
-    </div>
+    // </div>
   );
 }
 

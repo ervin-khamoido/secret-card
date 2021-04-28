@@ -29,11 +29,13 @@ export const CardsList = ({cards}) => {
                if (card.isViewed) {
                   isViewed = '+'
                }
+                  // .toLocaleString('en-GB', {timeZone: 'UTC'})
+               console.log('time', card.dateOfCreation);
 
                return (
                   <tr key={card._id}>
                      <td>{card.title}</td>
-                     <td>{card.dateOfCreation}</td>
+                     <td>{card.dateOfCreation.toLocaleString('en-GB', {timeZone: 'UTC'})}</td>
                      <td>{card.timeBeforeRemove}</td>
                      {/* <td>{card.isForOneReader}</td> */}
                      <td>{howManyReaders}</td>
