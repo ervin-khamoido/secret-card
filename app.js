@@ -12,7 +12,7 @@ app.use(express.json({extended: true}));
 app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/create', require('./routes/createCard.routes'));
 app.use('/api/history', require('./routes/historyCard.routes'));
-// app.use('/api/search', require('./routes/findCard.routes'));
+app.use('/api/search', require('./routes/findCard.routes'));
 
 if (process.env.NODE_ENV === 'production') {
    app.use('/', express.static(path.join(__dirname, 'client', 'build')));

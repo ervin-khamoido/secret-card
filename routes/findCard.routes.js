@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const {searchCardValidators} = require('../utils/validators');
-const {validationResult} = require();
-const {Card} = require('../models/Card');
+const {validationResult} = require('express-validator');
+const Card = require('../models/Card');
 
 const router = Router();
 
@@ -12,12 +12,13 @@ router.post('/', searchCardValidators, async (req, res) => {
       if (!errors.isEmpty()) {
          return res.status(400).json({
             errors: errors.array(),
-            message: 'ID is invalid!'
-         })
+            message: 'Card ID is invalid!'
+         }) 
       }
 
-      const {card_id} = req.body;
-      const potentialCard = await Card.findOne({cardId: card_id});
+      const {cardId} = req.body;
+
+      const potentialCard = await Card.findById(cardId);
 
       if (!potentialCard) {
          res.status(500).json({message: 'Card is not found!'})
@@ -25,7 +26,8 @@ router.post('/', searchCardValidators, async (req, res) => {
 
       res.status(201).json({potentialCard});
    } catch (error) {
-      res.status(500).json({message: 'Something goes wrong, try again...'});
+      console.log('error', error);
+      res.status(500).json({message: 'Card is not found!'});
    }
 });
 

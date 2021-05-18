@@ -8,6 +8,11 @@
    margin-top: 20px !important;
 }
 
+.MessageError {
+   margin-top: 20px !important;
+   font-weight: 700;
+}
+
 .Author {
    position: absolute;
    right: 3%;
@@ -17,4 +22,9 @@
    display: flex;
    justify-content: space-between;
    align-items: center;
+}
+
+.TitleError {
+   color: darkred;
+   font-weight: 900 !important;
 }

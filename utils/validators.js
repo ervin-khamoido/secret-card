@@ -50,7 +50,11 @@ exports.cardValidators = [
 ]
 
 exports.searchCardValidators = [
-   body('card_id', 'Card ID is invalid!')
+   body('cardId', 'Card ID is invalid!')
+      .isLength({
+         min: 23,
+         max: 26
+      })
       .isAlphanumeric()
       .trim()
 ]

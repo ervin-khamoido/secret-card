@@ -5,17 +5,27 @@ import { useModal } from "../../hooks/modals.hook";
 import classes from './FindCard.module.scss';
 
 export const FindCard = () => {
-   const [value, setValue] = useState('');
-   const {loading} = useHttp();
-   // const {loading, request} = useHttp();
+   const [cardId, setCardId] = useState('');
+   const {loading, request} = useHttp();
+   const [cardContent, setCardContent] = useState({
+      title: '',
+      message: '',
+      author: '',
+      disappearance: '',
+      creation: '',
+      errorMessage: ''
+   });
+
    const modal = useModal();
 
    const titleWrapperStyles = [classes.TitleWrapper, 'title-wrapper'].join(' ');
    const authorStyles = [classes.Author, 'card-title'].join(' ');
    const findBtnStyles = [classes.FindBtn, "btn waves-effect cyan darken-2 modal-trigger"].join(' ');
 
+   const titleError = ['card-title', classes.TitleError].join(' ');
+
    const changeHandler = event => {
-      setValue(event.target.value);
+      setCardId(event.target.value);
    }
 
    const findHandler = async event => {
@@ -24,15 +34,36 @@ export const FindCard = () => {
       if (loading) {
          return <Loader />
       }
+
       try {
-         // const card = await request('/api/search', 'POST', value);
-         
-         // if (card) {
-         //    modal('#card-modal').open();
-         // }
-         
-         modal('#card-modal').open();
-      } catch (error) {}
+         console.log('cardId', cardId);
+         const card = await request('/api/search', 'POST', {cardId});
+         const cardInfo = card.potentialCard;
+         console.log('card', card);
+
+         if (card) {
+            setCardContent({
+               ...cardContent,
+               title: cardInfo.title,
+               message: cardInfo.message,
+               author: cardInfo.author,
+               disappearance: cardInfo.timeBeforeRemove,
+               creation: cardInfo.dateOfCreation
+            })
+
+            modal('#card-modal').open();
+            setCardId('');
+         }
+      } catch (error) {
+         setCardContent({
+            ...cardContent,
+            errorMessage: error.toString()
+         });
+         console.log('fail', error.toString());
+         modal('#card-modal').close();
+         modal('#card-modal-error').open();
+         setCardId('');
+      }
    }
 
    return (
@@ -44,9 +75,9 @@ export const FindCard = () => {
                <div className="search-row row">
                   <div className="input-field col s11">
                      <input 
-                        name="card_id"
+                        name="cardId"
                         type="text"
-                        value={value}
+                        value={cardId}
                         onChange={changeHandler}
                         required
                      />
@@ -69,14 +100,14 @@ export const FindCard = () => {
          <div className="modal card blue-grey darken-1" id="card-modal">
                <div className="card-content white-text">
                   <div className={titleWrapperStyles}>
-                     <span className="card-title">Card Title</span>
+                     <span className="card-title">{cardContent.title}</span>
                      <div>
-                        <h6>Date of creation: 06/02/2021</h6>
-                        <h6>Time until the card disappears: 00:12:43</h6>
+                        <h6>Date of creation: {cardContent.creation}</h6>
+                        <h6>Time until the card disappears: {cardContent.disappearance}</h6>
                      </div>
                   </div>
                   <hr/>
-                  <p className={classes.Message}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos voluptatum deserunt eos fuga esse quisquam, in nemo ut odio quis placeat consequatur maiores, reiciendis debitis, id aliquid nihil quo. Exercitationem veritatis laudantium saepe iure unde nemo facilis quia sint nihil! lorem100</p>
+                  <p className={classes.Message}>{cardContent.message}</p>
                </div>
                <div className="card-action">
                   <button
@@ -85,7 +116,24 @@ export const FindCard = () => {
                      Close forever for you
                   </button>
 
-                  <span className={authorStyles}>Author: Ervin</span>
+                  <span className={authorStyles}>Author: {cardContent.author}</span>
+               </div>
+         </div>
+
+         <div className="modal card blue-grey darken-1" id="card-modal-error">
+               <div className="card-content white-text">
+                  <div className={titleWrapperStyles}>
+                     <span className={titleError}>Try again...</span>
+                  </div>
+                  <hr/>
+                  <p className={classes.MessageError}>{cardContent.errorMessage}</p>
+               </div>
+               <div className="card-action">
+                  <button
+                     className="modal-close btn waves-effect red darken-4 modal-trigger"
+                  >
+                     Close
+                  </button>
                </div>
          </div>
       </>
